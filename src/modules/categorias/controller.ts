@@ -1,7 +1,8 @@
-import db from '../../database/index.js'
+import { Request, Response } from 'express'
+import db from '../../database/index'
 
 const categoriaController = {
-  async create(req, res) {
+  async create(req: Request, res: Response) {
     const { nome } = req.body
     try {
       if (!nome) {
@@ -20,7 +21,7 @@ const categoriaController = {
     }
   },
 
-  async listAll(req, res) {
+  async listAll(req: Request, res: Response) {
     try {
       //select no banco
       const categorias = await db.categoria.findMany()
@@ -31,7 +32,7 @@ const categoriaController = {
     }
   },
 
-  async listOne(req, res) {
+  async listOne(req: Request, res: Response) {
     try {
       //select no banco
       const categoria = await db.categoria.findUnique({ where: { id: Number(req.params.id) } })
@@ -41,7 +42,7 @@ const categoriaController = {
       return res.status(500).json("Aconteceu um erro no servidor")
     }
   },
-  async update(req, res) {
+  async update(req: Request, res: Response) {
 
     const { id } = req.params
     const { nome } = req.body
@@ -65,7 +66,7 @@ const categoriaController = {
     }
   },
 
-  async delete(req, res) {
+  async delete(req: Request, res: Response) {
     const { id } = req.params
 
     try {

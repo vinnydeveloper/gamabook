@@ -1,8 +1,11 @@
-import db from '../../database/index.js'
+import { Request, Response } from 'express'
+
+import db from '../../database/index'
 
 const livrosController = {
 
-  async create(req, res) {
+  async create(req: Request, res: Response) {
+  
     const { titulo, ano_lancamento, autor, categoria_id } = req.body
 
     try {
@@ -27,7 +30,8 @@ const livrosController = {
       return res.status(500).json("Aconteceu um erro no servidor")
     }
   },
-  async listAll(req, res) {
+  async listAll(req: Request, res: Response) {
+    console.log(req.user)
     try {
       const livros = await db.livros.findMany({
         include: {
@@ -43,7 +47,7 @@ const livrosController = {
 
   },
 
-  listarUm(req, res) {
+  listarUm(req: Request, res: Response) {
 
   }
 }

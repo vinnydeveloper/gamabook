@@ -3,7 +3,7 @@ const livrosModel = {
     return ["livro 1", "livro 2"]
   },
 
-  selectOne(id) {
+  selectOne(id:string) {
     return { id: id, nome: "livro tal", categoria: "acao" }
   }
 }
