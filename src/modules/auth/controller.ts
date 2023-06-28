@@ -5,13 +5,14 @@ import "dotenv/config"
 import JWT from 'jsonwebtoken'
 
 import db from "../../database";
+import HASH_SALT from "../../constants/hashSalt";
 
 
 const authController = {
   async register(req: Request, res: Response){
     const { email, senha } = req.body;
 
-    const hashSenha = bcriptjs.hashSync(senha)
+    const hashSenha = bcriptjs.hashSync(senha, HASH_SALT.VALUE)
 
     const newUsuario = await db.usuarios.create({
       data: {

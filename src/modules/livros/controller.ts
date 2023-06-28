@@ -20,7 +20,8 @@ const livrosController = {
             connect: {
               id: Number(categoria_id)
             }
-          }
+          },
+        
         }
       })
 

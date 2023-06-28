@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import db from '../../database/index'
+import MESSAGES_ERRORS from '../../constants/messagesErrors'
 
 const categoriaController = {
   async create(req: Request, res: Response) {
@@ -17,7 +18,7 @@ const categoriaController = {
       return res.json(novaCacategoria)
     } catch (error) {
       console.error(error)
-      return res.status(500).json("Aconteceu um erro no servidor")
+      return res.status(500).json(MESSAGES_ERRORS.DEFAULT_SERVER_ERROR)
     }
   },
 
@@ -28,7 +29,7 @@ const categoriaController = {
       return res.json(categorias)
     } catch (error) {
       console.error(error)
-      return res.status(500).json("Aconteceu um erro no servidor")
+      return res.status(500).json(MESSAGES_ERRORS.DEFAULT_SERVER_ERROR)
     }
   },
 
@@ -39,7 +40,7 @@ const categoriaController = {
       return res.json(categoria)
     } catch (error) {
       console.error(error)
-      return res.status(500).json("Aconteceu um erro no servidor")
+      return res.status(500).json(MESSAGES_ERRORS.DEFAULT_SERVER_ERROR)
     }
   },
   async update(req: Request, res: Response) {
@@ -62,7 +63,7 @@ const categoriaController = {
 
     } catch (error) {
       console.error(error)
-      return res.status(500).json("Aconteceu um erro no servidor")
+      return res.status(500).json(MESSAGES_ERRORS.DEFAULT_SERVER_ERROR)
     }
   },
 
@@ -80,7 +81,7 @@ const categoriaController = {
       res.sendStatus(204)
     } catch (error) {
       console.error(error)
-      return res.status(500).json("Aconteceu um erro no servidor")
+      return res.status(500).json(MESSAGES_ERRORS.DEFAULT_SERVER_ERROR)
     }
   }
 }

@@ -8,27 +8,30 @@ datasource db {
 }
 
 model Usuarios {
-  id Int @id @default(autoincrement())
-  email String @unique
-  senha String 
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  senha      String
   created_at DateTime
   updated_at DateTime
 }
 
-model Livros{
-  id Int @id @default(autoincrement())
-  titulo String @unique
-  autor String 
+
+
+model Livros {
+  id             Int         @id @default(autoincrement())
+  titulo         String      @unique
+  autor          String
   ano_lancamento DateTime
-  created_at DateTime
-  updated_at DateTime
-  categorias Categoria[]
+  created_at     DateTime
+  updated_at     DateTime
+  categorias     Categoria[]
+
 }
 
-model Categoria{
-  id Int @id @default(autoincrement())
-  nome String @unique
+model Categoria {
+  id         Int      @id @default(autoincrement())
+  nome       String   @unique
   created_at DateTime
   updated_at DateTime
-  livros Livros[]
+  livros     Livros[]
 }
