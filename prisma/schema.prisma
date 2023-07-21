@@ -15,7 +15,14 @@ model Usuarios {
   updated_at DateTime
 }
 
-
+model Fotos {
+  id         Int      @id @default(autoincrement())
+  url        String
+  livroId    Int
+  livro      Livros   @relation(fields: [livroId], references: [id])
+  created_at DateTime
+  updated_at DateTime
+}
 
 model Livros {
   id             Int         @id @default(autoincrement())
@@ -25,7 +32,7 @@ model Livros {
   created_at     DateTime
   updated_at     DateTime
   categorias     Categoria[]
-
+  fotos          Fotos[]
 }
 
 model Categoria {

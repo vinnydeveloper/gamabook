@@ -6,42 +6,55 @@ import JWT from 'jsonwebtoken'
 
 import db from "../../database";
 import HASH_SALT from "../../constants/hashSalt";
+import logger from "../../infra/logger";
+import createTimestamp from "../../helpers/createTimestamp";
 
 
 const authController = {
-  async register(req: Request, res: Response){
+  async register(req: Request, res: Response) {
     const { email, senha } = req.body;
 
+    const timestamp = createTimestamp()
     const hashSenha = bcriptjs.hashSync(senha, HASH_SALT.VALUE)
 
     const newUsuario = await db.usuarios.create({
       data: {
         email,
         senha: hashSenha,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
+        ...timestamp
       }
     })
 
     return res.json(newUsuario)
   },
 
-  async login(req: Request, res: Response){
-    const { email, senha } = req.body;
+  async login(req: Request, res: Response) {
 
-    const user = await db.usuarios.findFirst({where:{ email }})
+    try {
 
-    if(!user) return res.status(404).json("Usuário não existente")
+      const { email, senha } = req.body;
+      logger.info("Inicio da autenticação do email: " + email)
 
-    if(!bcriptjs.compareSync(senha, user.senha)) 
-      return res.status(401).json("Usuário ou senha inválidos")
+      const user = await db.usuarios.findFirst({ where: { email } })
 
-    const token = JWT.sign({
-      id: user.id,
-      email: user.email
-    }, process.env.APP_TOKEN!)
+      if (!user) return res.status(404).json("Usuário não existente")
 
-    return res.json(token)
+      if (!bcriptjs.compareSync(senha, user.senha))
+        return res.status(401).json("Usuário ou senha inválidos")
+
+      const token = JWT.sign({
+        id: user.id,
+        email: user.email
+      }, process.env.APP_TOKEN!)
+
+      logger.info("Finalizando autenticação com sucesso: " + email)
+      return res.json(token)
+    }
+    catch (error) {
+      logger.error("Erro na autenticação")
+
+      return res.status(500).json("Erro na autenticação")
+    }
   }
 }
 

@@ -1,0 +1,25 @@
+error: Erro na autenticação 
+Invalid `db.usuarios.findFirst()` invocation in
+/home/vinnydeveloper/projects/gamabook/src/modules/auth/controller.ts:37:38
+
+  34 const { email, senha } = req.body;
+  35 logger.info("Inicio da autenticação do email: " + email)
+  36 
+→ 37 const user = await db.usuarios.findFirst(
+Can't reach database server at `localhost`:`4000`
+
+Please make sure your database server is running at `localhost`:`4000`. {"clientVersion":"4.15.0","stack":"Error: \nInvalid `db.usuarios.findFirst()` invocation in\n/home/vinnydeveloper/projects/gamabook/src/modules/auth/controller.ts:37:38\n\n  34 const { email, senha } = req.body;\n  35 logger.info(\"Inicio da autenticação do email: \" + email)\n  36 \n→ 37 const user = await db.usuarios.findFirst(\nCan't reach database server at `localhost`:`4000`\n\nPlease make sure your database server is running at `localhost`:`4000`.\n    at Object.handleRequestError (/home/vinnydeveloper/projects/gamabook/node_modules/@prisma/client/runtime/library.js:174:7205)\n    at Object.handleAndLogRequestError (/home/vinnydeveloper/projects/gamabook/node_modules/@prisma/client/runtime/library.js:174:6358)\n    at <anonymous> (/home/vinnydeveloper/projects/gamabook/node_modules/@prisma/client/runtime/library.js:177:2908)\n    at <anonymous> (/home/vinnydeveloper/projects/gamabook/node_modules/@prisma/client/runtime/library.js:177:3123)\n    at t._executeRequest (/home/vinnydeveloper/projects/gamabook/node_modules/@prisma/client/runtime/library.js:177:10621)\n    at login (/home/vinnydeveloper/projects/gamabook/src/modules/auth/controller.ts:37:20)","timestamp":"2023-06-28T12:09:17.065Z"}
+error: Erro na autenticação 
+Invalid `db.usuarios.findFirst()` invocation in
+/home/vinnydeveloper/projects/gamabook/src/modules/auth/controller.ts:37:38
+
+  34 const { email, senha } = req.body;
+  35 logger.info("Inicio da autenticação do email: " + email)
+  36 
+→ 37 const user = await db.usuarios.findFirst(
+Can't reach database server at `localhost`:`4000`
+
+Please make sure your database server is running at `localhost`:`4000`. {"clientVersion":"4.15.0","stack":"Error: \nInvalid `db.usuarios.findFirst()` invocation in\n/home/vinnydeveloper/projects/gamabook/src/modules/auth/controller.ts:37:38\n\n  34 const { email, senha } = req.body;\n  35 logger.info(\"Inicio da autenticação do email: \" + email)\n  36 \n→ 37 const user = await db.usuarios.findFirst(\nCan't reach database server at `localhost`:`4000`\n\nPlease make sure your database server is running at `localhost`:`4000`.\n    at Object.handleRequestError (/home/vinnydeveloper/projects/gamabook/node_modules/@prisma/client/runtime/library.js:174:7205)\n    at Object.handleAndLogRequestError (/home/vinnydeveloper/projects/gamabook/node_modules/@prisma/client/runtime/library.js:174:6358)\n    at <anonymous> (/home/vinnydeveloper/projects/gamabook/node_modules/@prisma/client/runtime/library.js:177:2908)\n    at <anonymous> (/home/vinnydeveloper/projects/gamabook/node_modules/@prisma/client/runtime/library.js:177:3123)\n    at t._executeRequest (/home/vinnydeveloper/projects/gamabook/node_modules/@prisma/client/runtime/library.js:177:10621)\n    at login (/home/vinnydeveloper/projects/gamabook/src/modules/auth/controller.ts:37:20)","timestamp":"2023-06-28T12:10:52.832Z"}
+
+
+error: Erro na autenticação {"timestamp":"2023-06-28T12:11:07.658Z"}
