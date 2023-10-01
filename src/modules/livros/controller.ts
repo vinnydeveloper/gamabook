@@ -1,46 +1,67 @@
 import { Request, Response } from 'express'
 import xlxs from 'xlsx'
 import path from 'path'
-import db from '../../database/index'
+import Livro from './Livro'
+import LivroRepository from '../../repositories/livro/LivroRepository'
+import db from '../../database'
+import TranslateLivro from './TranslateLivro'
+import AudioLivro from './AudioLivro'
+import FreeTranslateService from './FreeTranslateService'
+
 
 const livrosController = {
 
   async create(req: Request, res: Response) {
-
-    const { titulo, ano_lancamento, autor, categoria_id } = req.body
-    const { file } = req
-
-
-    if (!file || !file.originalname) {
-      return res.status(400).json("A foto é obrigátoria")
-    }
-
     try {
-      const newLivro = await db.livros.create({
-        data: {
-          titulo,
-          ano_lancamento: new Date(ano_lancamento).toISOString(),
-          autor,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-          categorias: {
-            connect: {
-              id: Number(categoria_id)
-            }
-          },
-          fotos: {
-            create: {
-              url: file?.originalname,
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString(),
-            }
-          }
+      const { titulo, ano_lancamento, autor, categoria_id } = req.body
+      const { file } = req
 
-        }
-      })
+
+      if (!file || !file.originalname) {
+        return res.status(400).json("A foto é obrigátoria")
+      }
+
+      const livro = new Livro(titulo, ano_lancamento, autor, categoria_id, file.originalname, 10, "lorem")
+
+      const audioLivro = new AudioLivro(titulo, ano_lancamento, autor, categoria_id, file.originalname, 10, "lorem")
+
+      const livroRepository = new LivroRepository()
+
+      const newLivro = livroRepository.saveLivro(audioLivro)
+
 
       return res.json(newLivro)
-    } catch (error) {
+    }
+    catch (error) {
+      console.error(error)
+      return res.status(500).json("Aconteceu um erro no servidor")
+    }
+  },
+
+  async createEN(req: Request, res: Response) {
+    try {
+      const { titulo, ano_lancamento, autor, categoria_id } = req.body
+      const { file } = req
+
+
+      if (!file || !file.originalname) {
+        return res.status(400).json("A foto é obrigátoria")
+      }
+
+      const freeTranslateService = new FreeTranslateService()
+
+      const livro = new TranslateLivro(titulo, ano_lancamento, autor, categoria_id, file.originalname, freeTranslateService)
+
+      await livro.setLivroTranslatedEN()
+
+      const livroRepository = new LivroRepository()
+
+      const newLivro = livroRepository.saveLivro(livro)
+
+
+      return res.json(newLivro)
+    }
+    catch (error) {
       console.error(error)
       return res.status(500).json("Aconteceu um erro no servidor")
     }
@@ -89,5 +110,8 @@ const livrosController = {
     return res.json(newLivros)
   }
 }
+
+
+
 
 export default livrosController
