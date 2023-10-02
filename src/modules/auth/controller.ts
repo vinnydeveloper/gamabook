@@ -12,20 +12,31 @@ import createTimestamp from "../../helpers/createTimestamp";
 
 const authController = {
   async register(req: Request, res: Response) {
-    const { email, senha } = req.body;
+    try {
+      const { email, senha } = req.body;
 
-    const timestamp = createTimestamp()
-    const hashSenha = bcriptjs.hashSync(senha, HASH_SALT.VALUE)
+      const timestamp = createTimestamp()
+      const hashSenha = bcriptjs.hashSync(senha, HASH_SALT.VALUE)
 
-    const newUsuario = await db.usuarios.create({
-      data: {
-        email,
-        senha: hashSenha,
-        ...timestamp
+      const existsEmail = await db.usuarios.count({ where: { email } })
+
+      if (existsEmail) {
+        return res.status(400).json("this email exists")
       }
-    })
 
-    return res.json(newUsuario)
+      const newUsuario = await db.usuarios.create({
+        data: {
+          email,
+          senha: hashSenha,
+          ...timestamp
+        }
+      })
+
+      return res.status(201).json(newUsuario)
+    } catch (error) {
+      return res.status(500).json(error)
+    }
+
   },
 
   async login(req: Request, res: Response) {

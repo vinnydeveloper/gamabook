@@ -1,7 +1,7 @@
 import express from 'express';
-import categoriaController from './controller.js'
-import createValidation from './validations/create.js'
-import getIdValidation from './validations/getId.js'
+import categoriaController from './controller'
+import createValidation from './validations/create'
+import getIdValidation from './validations/getId'
 
 const routes = express.Router()
 

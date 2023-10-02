@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express'
+import 'dotenv/config'
 import livrosRoutes from './modules/livros/routes'
 import categoriasRoutes from './modules/categorias/routes'
 
