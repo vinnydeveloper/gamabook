@@ -14,7 +14,7 @@ export default class CreateLivro implements IUseCase<CreatePayload> {
     this.livroRepository = livroRepository
   }
 
-  async execute(payload) {
+  async execute(payload: any) {
 
     const livro = new Livro(payload.titulo, payload.ano_lancamento, payload.autor, payload.categoria_id, payload.fileOriginalname, payload.pagina, payload.conteudo)
 

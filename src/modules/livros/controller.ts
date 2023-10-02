@@ -5,7 +5,7 @@ import Livro from './Livro'
 import LivroRepository from '../../repositories/livro/LivroRepository'
 import db from '../../database'
 import TranslateLivro from './TranslateLivro'
-import AudioLivro from './AudioLivro'
+// import AudioLivro from './AudioLivro'
 import FreeTranslateService from './FreeTranslateService'
 
 
@@ -23,14 +23,8 @@ const livrosController = {
 
       const livro = new Livro(titulo, ano_lancamento, autor, categoria_id, file.originalname, 10, "lorem")
 
-      const audioLivro = new AudioLivro(titulo, ano_lancamento, autor, categoria_id, file.originalname, 10, "lorem")
 
-      const livroRepository = new LivroRepository()
-
-      const newLivro = livroRepository.saveLivro(audioLivro)
-
-
-      return res.json(newLivro)
+      return res.json(livro)
     }
     catch (error) {
       console.error(error)
@@ -54,7 +48,7 @@ const livrosController = {
 
       await livro.setLivroTranslatedEN()
 
-      const livroRepository = new LivroRepository()
+      const livroRepository = new LivroRepository(db)
 
       const newLivro = livroRepository.saveLivro(livro)
 
