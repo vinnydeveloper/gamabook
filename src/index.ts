@@ -14,6 +14,9 @@ app.use(express.urlencoded())
 app.use(express.static('public'))
 
 app.use(requestLog)
+app.get('/', (req, res) => {
+  res.json("Api rodando corretamente")
+})
 app.use(livrosRoutes)
 app.use(categoriasRoutes)
 app.use(authRoutes)
