@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "build": "tsc && npx prisma migrate deploy",
     "build-test": "dotenv -e .env.test -- npx prisma migrate deploy",
     "test": "dotenv -e .env.test -- jest --verbose",
-    "start": "NODE_ENV=prod && node build/index.js",
+    "start": "NODE_ENV=prod && node ./build/index.js",
     "dev": "npx tsx watch --ignore ./node_modules src/index.ts"
   },
   "keywords": [],
